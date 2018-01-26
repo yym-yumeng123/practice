@@ -1,0 +1,89 @@
+	
+
+
+
+
+		/*reset样式*/
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		a{
+			text-decoration: none;
+			font-family: "微软雅黑";
+		}
+		.nav{
+			position: relative;
+			width: 234px;
+			height: 460px;
+			background-color: rgba(0,0,0,.5);/*有一个透明度*/
+			margin-top: 50px;
+			margin-left: 30px;
+		}
+		.nav .list{
+			list-style: none;
+			padding: 20px 0;
+		}
+		.nav .list .item:hover>a{
+			background-color: #ff6700;
+		}
+		.nav .list .item>a{
+			position: relative;  /*参照物*/
+			display: block;
+			height: 42px;
+			line-height: 42px;
+			font-size: 14px;
+			padding-left: 30px;
+			color: #fff;
+		}
+		.nav .list .item>a i{
+			position: absolute; /*相对于a标签定位*/
+			right: 20px;
+			font-weight: bold;
+		}
+		.nav .list .item .child-list{
+			display: none;
+			width: 260px;
+			height: 460px;
+			border: 2px solid #ddd;
+			box-shadow: 2px 3px 2px gray;
+			background-color: #fff;
+			position: absolute;
+			top: 0;
+			left: 234px;
+		}
+		.nav .list .item .child-list ul li{
+			width: 240px;
+			height: 60px;
+			list-style: none;
+			margin-left: 20px;
+			padding: 20px 0;
+		}
+		.nav .list .item .child-list ul li a:hover span{
+			color: #ff6700;
+		}
+		.nav .list .item .child-list ul li a span{
+			color: #333;
+			font-size: 14px;
+			margin-left: 20px;
+		}
+		.nav .list .item .child-list ul li a.btn_buy{
+			display: inline-block;
+			float: right;
+			margin-top: 5px;
+			color: #ff6700;
+			font-size: 14px;
+			background-color: #fff;
+			width: 55px;
+			height: 24px;
+			text-align: center;
+			line-height: 24px;
+			border: 3px solid #ff6700;
+		}
+		.nav .list .item .child-list ul li a.btn_buy:hover{
+			background-color: #ff6700;
+			color: #fff;
+		}
+		.nav .list .item:hover .child-list{
+			display: block;
+		}
