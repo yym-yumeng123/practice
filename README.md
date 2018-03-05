@@ -18,6 +18,10 @@
 
 运用`js`来修改导航栏的宽度,以及回到原来的宽度带下,
 ***
+- 新闻站(瀑布流 懒加载 jsonp)
+
+[效果yulan](https://yym-yumeng123.github.io/practice/news/news.html)
+***
 - 写了一个简历模板
 
 [效果预览](https://yym-yumeng123.github.io/practice/Test.html)
