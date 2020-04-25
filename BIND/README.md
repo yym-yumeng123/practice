@@ -16,3 +16,13 @@ fn.bind(asThis, p1, p2)
 
 fn.bind(asThis)(p1, p2)
 ```
+
+支持 new
+```js
+new fn(x)
+
+1. const temp = {}
+2. this.__proto__ = fn.prototype  // new 为 true , 非 new 为 false
+3. fn.call(temp, 'x')
+4. return this 在fn 的最后一行
+```
