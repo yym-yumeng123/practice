@@ -1,8 +1,8 @@
-function bind(asThis) {
+function bind(asThis, ...args) {
   // this 就是函数
   const fn = this
-  return function () {
-    return fn.call(asThis)
+  return function (...argu) {
+    return fn.call(asThis, ...args, ...argu)
   }
 }
 
