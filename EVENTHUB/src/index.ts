@@ -14,9 +14,9 @@ class EventHub {
 	}
 
   // 触发事件
-  emit(eventName) {
+  emit(eventName, params) {
 		// 把 this.cache[eventName] 数组里面的 fn 依次调用
-		(this.cache[eventName] || []).forEach(fn => fn())
+		(this.cache[eventName] || []).forEach(fn => fn(params))
 	}
 }
 
