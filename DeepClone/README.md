@@ -37,3 +37,12 @@ const obj = {
 
 const deepObj = JSON.parse(JSON.stringify(obj))
 ```
+
+## 思路
+1. 看数据类型
+2. 基本类型直接拷贝
+3. Object 分情况
+   - 普通Object for in
+   - 数组Array初始化
+   - 函数 function 怎么拷贝
+   - 日期Date 怎么拷贝
