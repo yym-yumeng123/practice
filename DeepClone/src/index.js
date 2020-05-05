@@ -3,10 +3,8 @@ function deepClone(source) {
   if (source instanceof Object) {
     let cacheDist = findCache(source)
     if (cacheDist) {
-      console.log('有缓存');
       return cacheDist
     } else {
-      console.log('灭荒村');
       let dist
       if (source instanceof Array) {
         dist = new Array()
@@ -14,6 +12,10 @@ function deepClone(source) {
         dist = function () {
           return source.apply(this, arguments)
         }
+      } else if(source instanceof RegExp) {
+        dist = new RegExp(source.source, source.flags)
+      } else if(source instanceof Date) {
+        dist = new Date(source)
       } else {
         dist = new Object()
       }
@@ -23,7 +25,7 @@ function deepClone(source) {
       for (let key in source) {
         dist[key] = deepClone(source[key])
       }
-      
+
       return dist
     }
   }

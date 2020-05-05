@@ -36,6 +36,41 @@ describe("deepClone", () => {
     assert(sym === sym2)
   })
 
+  it('可以复制正则表达式', () => {
+    const a = new RegExp('hi\\d+', 'gi')
+    a.obj = {
+      name: {
+        age: 12,
+      },
+    }
+    const a2 = deepClone(a)
+
+    assert(a.source === a2.source)
+    assert(a.flags === a2.flags)
+    assert(a !== a2)
+    assert(a.obj.name.age === a2.obj.name.age)
+    assert(a.obj.name !== a2.obj.name)
+    assert(a.obj !== a2.obj)
+  });
+  
+  it('可以复制日期', () => {
+    const a = new Date()
+    a.obj = {
+      name: {
+        age: 12,
+      },
+    }
+    const a2 = deepClone(a)
+
+
+    assert(a !== a2)
+    assert(a.getTime() === a2.getTime())
+    assert(a.obj.name.age === a2.obj.name.age)
+    assert(a.obj.name !== a2.obj.name)
+    assert(a.obj !== a2.obj)
+  });
+  
+
   describe("对象", () => {
     it("能够复制普通对象", () => {
       const obj = {
@@ -84,15 +119,32 @@ describe("deepClone", () => {
       assert(fn() === fn2())
     })
 
-    it('环也能复制', () => {
-      const a = { name: 'yym'}
+    it("环也能复制", () => {
+      const a = { name: "yym" }
       a.self = a
       const a2 = deepClone(a)
 
       assert(a !== a2)
       assert(a.name === a2.name)
       assert(a.self !== a2.self)
-    });
-    
+    })
+
+    xit("不会爆栈", () => {
+      /**
+       * 变成 数组, 拍平
+       */
+      const a = { child: null }
+      let b = a
+      for (let i = 0; i < 10000; i++) {
+        b.child = {
+          child: null,
+        }
+        b = b.child
+      }
+
+      const a2 = deepClone(a)
+      assert(a !== a2)
+      assert(a.child !== a2.child)
+    })
   })
 })
