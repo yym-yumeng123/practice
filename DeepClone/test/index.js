@@ -83,5 +83,16 @@ describe("deepClone", () => {
       assert(fn.obj !== fn2.obj)
       assert(fn() === fn2())
     })
+
+    it('环也能复制', () => {
+      const a = { name: 'yym'}
+      a.self = a
+      const a2 = deepClone(a)
+
+      assert(a !== a2)
+      assert(a.name === a2.name)
+      assert(a.self !== a2.self)
+    });
+    
   })
 })
