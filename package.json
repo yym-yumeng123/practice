@@ -6,7 +6,8 @@
   "author": "yym-yumeng123 <18026493873@163.com>",
   "license": "MIT",
   "scripts": {
-    "test": "mocha DeepClone/test/**/*.js"
+    "test:deepClone": "mocha DeepClone/test/**/*.js",
+    "test:promise": "mocha -r ts-node/register Promise/test/**/*.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.2.0",
