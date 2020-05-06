@@ -34,4 +34,31 @@ describe("Promise", () => {
     assert(called === true)
   });
   
+  it('new Promise(fn) 中的 fn 执行时 接收 resolve 和 reject 两个函数', () => {
+    let called = false
+    const promise = new Promise((resolve, reject) => {
+      assert.isFunction(resolve)
+      assert.isFunction(reject)
+      called = true
+    })
+    // @ts-ignore
+    assert(called === true)
+  });
+  
+  it('promise.then(success) 中的 success 会在 resolve被调用的时候执行 ', done => {
+    let called = false
+    const promise = new Promise((resolve, reject) => {
+      assert(called === false)
+      resolve()
+      setTimeout(() => {
+        assert(called === true)
+        done()
+      })
+    })
+
+    promise.then(() => {
+      called = true
+    }, () => {})
+  });
+  
 })
