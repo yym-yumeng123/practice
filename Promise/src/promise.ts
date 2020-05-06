@@ -5,18 +5,17 @@ class Promise {
     if (typeof fn !== "function") {
       throw new Error("我只接收函数")
     }
-    fn(
-      () => {
-        setTimeout(() => {
-          this.succeed()
-        }, 0)
-      },
-      () => {
-        setTimeout(() => {
-          this.fail()
-        }, 0)
-      }
-    )
+    const resolve = () => {
+      setTimeout(() => {
+        this.succeed()
+      }, 0)
+    }
+    const reject = () => {
+      setTimeout(() => {
+        this.fail()
+      }, 0)
+    }
+    fn(resolve, reject)
   }
 
   then(succeed, fail) {
