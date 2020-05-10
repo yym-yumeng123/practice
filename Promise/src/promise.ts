@@ -1,6 +1,10 @@
 class Promise {
-  succeed = null
-  fail = null
+
+  /**
+   * @params {promise then 可以多次调用}
+   * [[succees, fail], [success, fail]]
+   * */ 
+  callbacks = []
 
   // 状态
   state = "pending"
@@ -8,18 +12,26 @@ class Promise {
     setTimeout(() => {
       if (this.state !== "pending") return
       this.state = "fulfilled"
-      if (typeof this.succeed === "function") {
-        this.succeed(result)
-      }
+
+      this.callbacks.forEach(handler => {
+        if (typeof handler[0] === "function") {
+          handler[0].call(undefined, result)
+        }
+      })
+      
     }, 0)
   }
   reject(reason) {
     setTimeout(() => {
       if (this.state !== "pending") return
       this.state = "rejected"
-      if (typeof this.fail === "function") {
-        this.fail(reason)
-      }
+
+      this.callbacks.forEach(handler => {
+        if (typeof handler[1] === "function") {
+          handler[1].call(undefined, reason)
+        }
+      })
+      
     }, 0)
   }
   constructor(fn) {
@@ -31,12 +43,16 @@ class Promise {
   }
 
   then(succeed?, fail?) {
+    const handler = []
     if (typeof succeed === "function") {
-      this.succeed = succeed
+      handler[0] = succeed
     }
     if (typeof fail === "function") {
-      this.fail = fail
+      handler[1] = fail
     }
+
+    // then 可以多次调用
+    this.callbacks.push(handler)
   }
 }
 

@@ -101,5 +101,128 @@ describe("Promise", () => {
         promise.then(succeed)
       })
     })
+
+    describe("2.2.3 如果 onRejected 是一个函数：", () => {
+      it("2.2.3.1 它一定在 promise 是 rejected 状态后调用，并且接受一个参数 reason, 2.2.3.2 它一定在 promise 是 rejected 状态后调用, 2.2.3.3: 它最多被调用一次", (done) => {
+        const fail = sinon.fake()
+        const promise = new Promise((resolve, reject) => {
+          assert.isFalse(fail.called)
+          reject("firstParams")
+          reject("firstParamsOne")
+
+          setTimeout(() => {
+            assert.isTrue(fail.calledOnce)
+            assert(promise.state === "rejected")
+            assert(fail.calledWith("firstParams"))
+            done()
+          }, 0)
+        })
+        promise.then(null, fail)
+      })
+    })
+
+    /**
+     * @param { 在我的代码执行完之前, 不得调用 then 后面的两个函数}
+     */
+    it("2.2.4 onFulfilled 或 onRejected 只在执行环境堆栈只包含平台代码之后调用", (done) => {
+      const succeed = sinon.fake()
+      const promise = new Promise((resolve) => {
+        resolve()
+      })
+
+      promise.then(succeed)
+      assert.isFalse(succeed.called)
+      setTimeout(() => {
+        assert.isTrue(succeed.called)
+        done()
+      })
+    })
+    it("2.2.4 失败情况测试", (done) => {
+      const fail = sinon.fake()
+      const promise = new Promise((resolve, reject) => {
+        reject()
+      })
+
+      promise.then(null, fail)
+      assert.isFalse(fail.called)
+      setTimeout(() => {
+        assert.isTrue(fail.called)
+        done()
+      })
+    })
+
+    it("2.2.5 onFulfilled 和 onRejected 会作为函数形式调用 (也就是说，默认 this 指向 global，严格模式 undefined)", (done) => {
+      const promise = new Promise((resolve) => {
+        resolve()
+      })
+
+      promise.then(function () {
+        "use strict"
+        assert(this === undefined)
+        done()
+      })
+    })
+
+    describe("2.2.6", () => {
+      it("promise 的 then 可以链式调用多次", done => {
+        const promise = new Promise((resolve) => {
+          resolve()
+        })
+
+        const callbacks = [sinon.fake(), sinon.fake(), sinon.fake()]
+        promise.then(callbacks[0])
+        promise.then(callbacks[1])
+        promise.then(callbacks[2])
+
+        setTimeout(() => {
+          assert(callbacks[0].called)
+          assert(callbacks[1].called)
+          assert(callbacks[2].called)
+          done()
+        }, 0)
+      })
+
+      it('2.2.6.1 如果或当 promise 转态是 fulfilled 时，所有的 onFulfilled 回调回以他们注册时的顺序依次执行', done => {
+        const promise = new Promise((resolve) => {
+          resolve()
+        })
+
+        const callbacks = [sinon.fake(), sinon.fake(), sinon.fake()]
+        promise.then(callbacks[0])
+        promise.then(callbacks[1])
+        promise.then(callbacks[2])
+
+        setTimeout(() => {
+          assert(callbacks[0].called)
+          assert(callbacks[1].called)
+          assert(callbacks[2].called)
+          assert(callbacks[1].calledAfter(callbacks[0]))
+          assert(callbacks[2].calledAfter(callbacks[1]))
+          done()
+        }, 0)
+      });
+
+      it('2.2.6.2 如果或当 promise 转态是 rejected 时，所有的 onRejected 回调回以他们注册时的顺序依次执行', done => {
+        const promise = new Promise((resolve, reject) => {
+          reject()
+        })
+
+        const callbacks = [sinon.fake(), sinon.fake(), sinon.fake()]
+        promise.then(null, callbacks[0])
+        promise.then(null,callbacks[1])
+        promise.then(null, callbacks[2])
+
+        setTimeout(() => {
+          assert(callbacks[0].called)
+          assert(callbacks[1].called)
+          assert(callbacks[2].called)
+          assert(callbacks[1].calledAfter(callbacks[0]))
+          assert(callbacks[2].calledAfter(callbacks[1]))
+          done()
+        }, 0)
+      });
+      
+      
+    })
   })
 })
