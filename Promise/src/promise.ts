@@ -1,14 +1,25 @@
 class Promise {
   succeed = null
   fail = null
-  resolve() {
+
+  // 状态
+  state = "pending"
+  resolve(result) {
     setTimeout(() => {
-      this.succeed()
+      if (this.state !== "pending") return
+      this.state = "fulfilled"
+      if (typeof this.succeed === "function") {
+        this.succeed(result)
+      }
     }, 0)
   }
-  reject() {
+  reject(reason) {
     setTimeout(() => {
-      this.fail()
+      if (this.state !== "pending") return
+      this.state = "rejected"
+      if (typeof this.fail === "function") {
+        this.fail(reason)
+      }
     }, 0)
   }
   constructor(fn) {
@@ -19,9 +30,13 @@ class Promise {
     fn(this.resolve.bind(this), this.reject.bind(this))
   }
 
-  then(succeed, fail) {
-    this.succeed = succeed
-    this.fail = fail
+  then(succeed?, fail?) {
+    if (typeof succeed === "function") {
+      this.succeed = succeed
+    }
+    if (typeof fail === "function") {
+      this.fail = fail
+    }
   }
 }
 
