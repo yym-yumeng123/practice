@@ -19,8 +19,12 @@
     <canvas id="canvas" width="500" height="500"></canvas>
 
     <script>
+      /**
+       * 先黑后白
+       */
       const canvas = document.getElementById("canvas")
       const ctx = canvas.getContext("2d")
+      const list = []
 
       function setLine() {
         for (let i = 1; i < 21; i++) {
@@ -37,7 +41,6 @@
           ctx.stroke()
         }
       }
-      
 
       function handlerClick() {
         canvas.addEventListener(
@@ -46,16 +49,19 @@
             const { clientX, clientY } = e
             const X = Math.round(clientX / 20) * 20
             const Y = Math.round(clientY / 20) * 20
+            list.push({
+              x: X,
+              y: Y,
+            })
             // console.log()
             ctx.beginPath()
             ctx.arc(X, Y, 10, 0, 2 * Math.PI, false)
-            ctx.fillStyle = "black"
+            ctx.fillStyle = list.length % 2 === 0 ? "white" : "black"
             ctx.fill()
           },
           false
         )
       }
-
 
       setLine()
       handlerClick()
