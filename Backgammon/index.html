@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>五子棋</title>
+    <style>
+      canvas {
+        /* border: 1px solid red; */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("canvas")
+      const ctx = canvas.getContext("2d")
+
+      for (let i = 1; i < 21; i++) {
+        ctx.moveTo(20, i * 20)
+        ctx.lineTo(400, i * 20)
+        ctx.stroke()
+      }
+
+      for (let i = 1; i < 21; i++) {
+        ctx.moveTo(i * 20, 20)
+        ctx.lineTo(20 * i, canvas.width)
+        ctx.stroke()
+      }
+    </script>
+  </body>
+</html>
