@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>五子棋</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
       canvas {
         /* border: 1px solid red; */
         background: #f3ca70;
@@ -18,31 +22,43 @@
       const canvas = document.getElementById("canvas")
       const ctx = canvas.getContext("2d")
 
-      for (let i = 1; i < 21; i++) {
-        ctx.beginPath()
-        ctx.moveTo(20, i * 20)
-        ctx.lineTo(400, i * 20)
-        ctx.stroke()
+      function setLine() {
+        for (let i = 1; i < 21; i++) {
+          ctx.beginPath()
+          ctx.moveTo(20, i * 20)
+          ctx.lineTo(400, i * 20)
+          ctx.stroke()
+        }
+
+        for (let i = 1; i < 21; i++) {
+          ctx.beginPath()
+          ctx.moveTo(i * 20, 20)
+          ctx.lineTo(20 * i, 400)
+          ctx.stroke()
+        }
+      }
+      
+
+      function handlerClick() {
+        canvas.addEventListener(
+          "click",
+          (e) => {
+            const { clientX, clientY } = e
+            const X = Math.round(clientX / 20) * 20
+            const Y = Math.round(clientY / 20) * 20
+            // console.log()
+            ctx.beginPath()
+            ctx.arc(X, Y, 10, 0, 2 * Math.PI, false)
+            ctx.fillStyle = "black"
+            ctx.fill()
+          },
+          false
+        )
       }
 
-      for (let i = 1; i < 21; i++) {
-        ctx.beginPath()
-        ctx.moveTo(i * 20, 20)
-        ctx.lineTo(20 * i, 400)
-        ctx.stroke()
-      }
 
-
-      var endAngle = 2 * Math.PI
-      ctx.beginPath()
-      ctx.arc(20, 20, 10, 0, endAngle)
-      ctx.fillStyle = 'black'
-      ctx.fill()
-
-      ctx.beginPath()
-      ctx.arc(40, 40, 10, 0, endAngle)
-      ctx.fillStyle = 'white'
-      ctx.fill()
+      setLine()
+      handlerClick()
     </script>
   </body>
 </html>
