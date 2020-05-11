@@ -7,27 +7,42 @@
     <style>
       canvas {
         /* border: 1px solid red; */
+        background: #f3ca70;
       }
     </style>
   </head>
   <body>
-    <canvas id="canvas" width="500" height="400"></canvas>
+    <canvas id="canvas" width="500" height="500"></canvas>
 
     <script>
       const canvas = document.getElementById("canvas")
       const ctx = canvas.getContext("2d")
 
       for (let i = 1; i < 21; i++) {
+        ctx.beginPath()
         ctx.moveTo(20, i * 20)
         ctx.lineTo(400, i * 20)
         ctx.stroke()
       }
 
       for (let i = 1; i < 21; i++) {
+        ctx.beginPath()
         ctx.moveTo(i * 20, 20)
-        ctx.lineTo(20 * i, canvas.width)
+        ctx.lineTo(20 * i, 400)
         ctx.stroke()
       }
+
+
+      var endAngle = 2 * Math.PI
+      ctx.beginPath()
+      ctx.arc(20, 20, 10, 0, endAngle)
+      ctx.fillStyle = 'black'
+      ctx.fill()
+
+      ctx.beginPath()
+      ctx.arc(40, 40, 10, 0, endAngle)
+      ctx.fillStyle = 'white'
+      ctx.fill()
     </script>
   </body>
 </html>
