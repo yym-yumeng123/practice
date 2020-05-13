@@ -19,6 +19,15 @@
     <canvas id="canvas" width="500" height="500"></canvas>
     <button>悔棋</button>
     <script>
+      const socket = new WebSocket("ws://localhost:8081")
+
+      socket.onopen = function (event) {
+        socket.send("Here's some text that the server is urgently awaiting!")
+      }
+
+      socket.onmessage = function (event) {
+        console.log(event.data)
+      }
       /**
        * 先黑后白
        */
@@ -68,7 +77,7 @@
         list.pop()
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         setLine()
-        
+
         list.forEach((item) => {
           console.log(item)
           ctx.beginPath()
