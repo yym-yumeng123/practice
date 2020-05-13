@@ -22,12 +22,9 @@
       const socket = new WebSocket("ws://localhost:8081")
 
       socket.onopen = function (event) {
-        socket.send("Here's some text that the server is urgently awaiting!")
+        // socket.send("Here's some text that the server is urgently awaiting!")
       }
 
-      socket.onmessage = function (event) {
-        console.log(event.data)
-      }
       /**
        * 先黑后白
        */
@@ -52,6 +49,18 @@
         }
       }
 
+      socket.onmessage = function (event) {
+        const eList = JSON.parse(event.data)
+        console.log(JSON.parse(event.data))
+        eList.forEach((item) => {
+          console.log(item)
+          ctx.beginPath()
+          ctx.arc(item.x, item.y, 10, 0, 2 * Math.PI, false)
+          ctx.fillStyle = item.color
+          ctx.fill()
+        })
+      }
+
       function handlerClick() {
         canvas.addEventListener(
           "click",
@@ -64,6 +73,7 @@
               y: Y,
               color: list.length % 2 === 0 ? "black" : "white",
             })
+            socket.send(JSON.stringify(list))
             ctx.beginPath()
             ctx.arc(X, Y, 10, 0, 2 * Math.PI, false)
             ctx.fillStyle = list.length % 2 === 0 ? "white" : "black"
