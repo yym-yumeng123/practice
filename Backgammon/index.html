@@ -17,12 +17,13 @@
   </head>
   <body>
     <canvas id="canvas" width="500" height="500"></canvas>
-
+    <button>悔棋</button>
     <script>
       /**
        * 先黑后白
        */
       const canvas = document.getElementById("canvas")
+      const button = document.querySelector("button")
       const ctx = canvas.getContext("2d")
       const list = []
 
@@ -52,8 +53,8 @@
             list.push({
               x: X,
               y: Y,
+              color: list.length % 2 === 0 ? "black" : "white",
             })
-            // console.log()
             ctx.beginPath()
             ctx.arc(X, Y, 10, 0, 2 * Math.PI, false)
             ctx.fillStyle = list.length % 2 === 0 ? "white" : "black"
@@ -62,6 +63,20 @@
           false
         )
       }
+
+      button.addEventListener("click", (e) => {
+        list.pop()
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        setLine()
+        
+        list.forEach((item) => {
+          console.log(item)
+          ctx.beginPath()
+          ctx.arc(item.x, item.y, 10, 0, 2 * Math.PI, false)
+          ctx.fillStyle = item.color
+          ctx.fill()
+        })
+      })
 
       setLine()
       handlerClick()
