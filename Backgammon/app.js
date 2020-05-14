@@ -1,9 +1,8 @@
-!(function () {
-  const socket = new WebSocket("ws://localhost:8081")
+const chessGame = (function () {
   const canvas = document.getElementById("canvas")
   const button = document.querySelector("button")
   const ctx = canvas.getContext("2d")
-  const pieceWidth = 30
+  const pieceWidth = 24
   const size = 20
   canvas.width = pieceWidth * (size + 1)
   canvas.height = canvas.width
@@ -29,16 +28,6 @@
 
   function clearBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-  }
-
-  socket.onmessage = function (event) {
-    const eList = JSON.parse(event.data)
-    list = eList
-
-    clearBoard()
-    drawCheckerBoard()
-    console.log(eList)
-    eList.forEach(drawPiece)
   }
 
   canvas.addEventListener(
@@ -71,4 +60,10 @@
   })
 
   drawCheckerBoard()
+
+  return {
+    drawCheckerBoard,
+    drawPiece,
+    clearBoard,
+  }
 })()
