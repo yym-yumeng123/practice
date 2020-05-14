@@ -26,6 +26,14 @@ const chessGame = (function () {
     ctx.fill()
   }
 
+  function setList(data) {
+    list = data
+  }
+
+  function getList() {
+    return list
+  }
+
   function clearBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
@@ -65,5 +73,7 @@ const chessGame = (function () {
     drawCheckerBoard,
     drawPiece,
     clearBoard,
+    setList,
+    getList
   }
 })()

@@ -4,10 +4,8 @@
 const socket = new WebSocket("ws://localhost:8081")
 
 socket.onmessage = function (event) {
-  const eList = JSON.parse(event.data)
-  list = eList
-
+  chessGame.setList(JSON.parse(event.data))
   chessGame.clearBoard()
   chessGame.drawCheckerBoard()
-  list.forEach(chessGame.drawPiece)
+  chessGame.getList().forEach(chessGame.drawPiece)
 }
