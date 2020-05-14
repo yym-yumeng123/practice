@@ -9,3 +9,9 @@ socket.onmessage = function (event) {
   chessGame.drawCheckerBoard()
   chessGame.getList().forEach(chessGame.drawPiece)
 }
+
+socket.onopen = function (data) {
+  window.addEventListener("updateChess", function (e) {
+    socket.send(JSON.stringify(e.detail))
+  })
+}

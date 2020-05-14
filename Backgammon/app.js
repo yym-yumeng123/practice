@@ -38,42 +38,52 @@ const chessGame = (function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
 
-  canvas.addEventListener(
-    "click",
-    (e) => {
-      const { clientX, clientY } = e
-      const X = Math.round(clientX / pieceWidth) * pieceWidth
-      const Y = Math.round(clientY / pieceWidth) * pieceWidth
-      list.push({
-        x: X,
-        y: Y,
-        color: list.length % 2 === 0 ? "black" : "white",
+  function play(e) {
+    const { clientX, clientY } = e
+    const X = Math.round(clientX / pieceWidth) * pieceWidth
+    const Y = Math.round(clientY / pieceWidth) * pieceWidth
+    list.push({
+      x: X,
+      y: Y,
+      color: list.length % 2 === 0 ? "black" : "white",
+    })
+    window.dispatchEvent(
+      new CustomEvent("updateChess", {
+        detail: list,
       })
-      socket.send(JSON.stringify(list))
-      drawPiece({
-        x: X,
-        y: Y,
-        color: list.length % 2 === 0 ? "white" : "black",
-      })
-    },
-    false
-  )
+    )
+    drawPiece(list[list.length - 1])
+  }
 
-  button.addEventListener("click", (e) => {
+  function withDraw(e) {
     list.pop()
-    socket.send(JSON.stringify(list))
+    window.dispatchEvent(
+      new CustomEvent("updateChess", {
+        detail: list,
+      })
+    )
     clearBoard()
     drawCheckerBoard()
     list.forEach(drawPiece)
-  })
+  }
 
-  drawCheckerBoard()
+  function bindEvent() {
+    canvas.addEventListener("click", play)
+    button.addEventListener("click", withDraw)
+  }
+
+  function init() {
+    drawCheckerBoard()
+    bindEvent()
+  }
+
+  init()
 
   return {
     drawCheckerBoard,
     drawPiece,
     clearBoard,
     setList,
-    getList
+    getList,
   }
 })()
