@@ -39,7 +39,12 @@ const chessGame = (function () {
   }
 
   function clearBoard() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(
+      pieceWidth / 2,
+      pieceWidth / 2,
+      pieceWidth * size,
+      pieceWidth * size
+    )
   }
 
   function play(e) {
