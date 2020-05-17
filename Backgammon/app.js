@@ -26,6 +26,36 @@ const chessGame = (function () {
     ctx.fill()
   }
 
+  function checkWin(checkInfo) {
+    let winCase = []
+
+    for(let j = 0; j < 5; j++) {
+      // 设置每一个都是数组
+      winCase[j] = winCase[j] || []
+
+      // 每一项里面 push 数组
+      for (let i = -j; i < 5 -j; i++) {
+
+        winCase[j].push({
+          x: checkInfo.x - i * pieceWidth,
+          y: checkInfo.y,
+          color: checkInfo.color,
+        })
+      }
+    }
+
+    const win = winCase.some(winList => {
+      console.log(winList, 'winList')
+      return winList.every(item => {
+        return list.some(chess => {
+          return item.x === chess.x && item.y === chess.y && item.color === chess.color
+        })
+      })
+    })
+
+    console.log(win, 'win..')
+  }
+
   /**
    *
    * @param {传递 list} data
@@ -85,6 +115,8 @@ const chessGame = (function () {
       })
     )
     drawPiece(list[list.length - 1])
+
+    checkWin(checkInfo)
   }
 
   function withDraw(e) {
