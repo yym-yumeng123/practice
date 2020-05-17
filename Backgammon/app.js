@@ -68,7 +68,7 @@ const chessGame = (function () {
       }
     }
 
-    const win =winCase.map(winPosition => {
+    const win =winCase.some(winPosition => {
       return winPosition.some((winList) => {
         return winList.every((item) => {
           return list.some((chess) => {
@@ -83,6 +83,9 @@ const chessGame = (function () {
     })
 
     console.log(win, "win..")
+    if(win) {
+      alert('赢了..')
+    }
   }
 
   /**
