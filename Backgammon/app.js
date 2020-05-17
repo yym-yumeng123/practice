@@ -29,31 +29,60 @@ const chessGame = (function () {
   function checkWin(checkInfo) {
     let winCase = []
 
-    for(let j = 0; j < 5; j++) {
-      // 设置每一个都是数组
-      winCase[j] = winCase[j] || []
-
-      // 每一项里面 push 数组
-      for (let i = -j; i < 5 -j; i++) {
-
-        winCase[j].push({
-          x: checkInfo.x - i * pieceWidth,
-          y: checkInfo.y,
-          color: checkInfo.color,
-        })
+    for (let k = 0; k < 4; k++) {
+      winCase[k] = winCase[k] || []
+      for (let j = 0; j < 5; j++) {
+        // 设置每一个都是数组
+        winCase[k][j] = winCase[k][j] || []
+        // 每一项里面 push 数组
+        for (let i = -j; i < 5 - j; i++) {
+          if(k === 0) {
+            winCase[k][j].push({
+              x: checkInfo.x - i * pieceWidth,
+              y: checkInfo.y,
+              color: checkInfo.color,
+            })
+          }
+          if(k === 1) {
+            winCase[k][j].push({
+              x: checkInfo.x,
+              y: checkInfo.y - i * pieceWidth,
+              color: checkInfo.color,
+            })
+          }
+          if(k === 2) {
+            winCase[k][j].push({
+              x: checkInfo.x - i * pieceWidth,
+              y: checkInfo.y - i * pieceWidth,
+              color: checkInfo.color,
+            })
+          }
+          if(k === 3) {
+            winCase[k][j].push({
+              x: checkInfo.x + i * pieceWidth,
+              y: checkInfo.y - i * pieceWidth,
+              color: checkInfo.color,
+            })
+          }
+        }
       }
     }
 
-    const win = winCase.some(winList => {
-      console.log(winList, 'winList')
-      return winList.every(item => {
-        return list.some(chess => {
-          return item.x === chess.x && item.y === chess.y && item.color === chess.color
+    const win =winCase.map(winPosition => {
+      return winPosition.some((winList) => {
+        return winList.every((item) => {
+          return list.some((chess) => {
+            return (
+              item.x === chess.x &&
+              item.y === chess.y &&
+              item.color === chess.color
+            )
+          })
         })
       })
     })
 
-    console.log(win, 'win..')
+    console.log(win, "win..")
   }
 
   /**
