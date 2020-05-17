@@ -2,7 +2,7 @@ const chessGame = (function () {
   const canvas = document.getElementById("canvas")
   const button = document.querySelector("button")
   const ctx = canvas.getContext("2d")
-  const pieceWidth = 24
+  const pieceWidth = 30
   const size = 20
   canvas.width = pieceWidth * (size + 1)
   canvas.height = canvas.width
@@ -26,6 +26,10 @@ const chessGame = (function () {
     ctx.fill()
   }
 
+  /**
+   *
+   * @param {传递 list} data
+   */
   function setList(data) {
     list = data
   }
@@ -39,14 +43,37 @@ const chessGame = (function () {
   }
 
   function play(e) {
+    // FIXME: 超出边界
+    if (
+      e.clientY <= pieceWidth / 2 ||
+      e.clientY >= pieceWidth * size + pieceWidth / 2 ||
+      e.clientX <= pieceWidth / 2 ||
+      e.clientX >= pieceWidth * size + pieceWidth / 2
+    ) {
+      return
+    }
+
     const { clientX, clientY } = e
     const X = Math.round(clientX / pieceWidth) * pieceWidth
     const Y = Math.round(clientY / pieceWidth) * pieceWidth
-    list.push({
+
+    let checkInfo = {
       x: X,
       y: Y,
       color: list.length % 2 === 0 ? "black" : "white",
-    })
+    }
+
+    // FIXME: 重复点击
+    if (
+      list.some((item) => {
+        return item.x === checkInfo.x && item.y === checkInfo.y
+      })
+    ) {
+      return false
+    }
+
+    list.push(checkInfo)
+
     window.dispatchEvent(
       new CustomEvent("updateChess", {
         detail: list,
