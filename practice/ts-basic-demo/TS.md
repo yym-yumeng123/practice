@@ -33,3 +33,8 @@ tsc -v
 - BigInt
 - Symbol
 - Object
+
+### 类 Class
+- 类(Class): 定义了一切事物的抽象特点
+- 对象(Object): 类的实例
+- 面向对象(OOP)三大特性: 封装, 继承, 多态
