@@ -23,3 +23,13 @@ npm install -g typescript
 
 tsc -v
 ```
+
+### JS 数据类型
+- String
+- Number
+- Boolean
+- Null
+- Undefined
+- BigInt
+- Symbol
+- Object
