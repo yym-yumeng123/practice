@@ -29,9 +29,9 @@ arrOfNumbers.push(5)
 
 // 类数组
 function testArray() {
-  console.log(arguments);
+  console.log(arguments)
   // arguments: IArguments
 }
 
 // 元组(限定类型的一个数组): Tuple
-let user: [string, number] = ['yym', 1221]
+let user: [string, number] = ["yym", 1221]
