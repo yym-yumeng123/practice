@@ -8,15 +8,13 @@
  */
 class Animal {
   readonly name: string
-  static categoies: string[] = ['animal', 'bird']
+  static categoies: string[] = ["animal", "bird"]
   static isAnimal(a) {
     return a instanceof Animal
   }
   constructor(name: string) {
     this.name = name
   }
-
-
 
   run() {
     return `${this.name} is running`
@@ -67,3 +65,25 @@ const snake1 = new Animal1("yym")
 console.log(snake1.run())
 // 属性“name”为私有属性，只能在类“Animal1”中访问
 // console.log(snake1.name);
+
+/**
+ * 类和接口
+ */
+
+interface Radio {
+  switchRadio(): void
+}
+
+interface Battery {
+  check()
+}
+
+class Car implements Radio, Battery {
+  switchRadio() {}
+  check() {}
+}
+
+class CellPhone implements Radio, Battery {
+  switchRadio() {}
+  check() {}
+}

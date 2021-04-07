@@ -6,24 +6,24 @@
  * 3. Duck Typing(鸭子类型)
  */
 interface Person {
-  name: string;
+  name: string
   age: number
 }
 
 let yym: Person = {
-  name: 'yym',
-  age: 20
+  name: "yym",
+  age: 20,
 }
 
 // 可选属性 ?
 interface IProps {
-  name?: string;
-  age?: number;
+  name?: string
+  age?: number
 }
 
 // 只读属性 readonly
 interface IReadonlyProps {
-  readonly id: number;
+  readonly id: number
   name?: string
   age: number
 }
