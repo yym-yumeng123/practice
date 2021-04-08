@@ -36,6 +36,13 @@
   resolved "https://registry.npm.taobao.org/@types/chai/download/@types/chai-4.2.11.tgz#d3614d6c5f500142358e6ed24e1bf16657536c50"
   integrity sha1-02FNbF9QAUI1jm7SThvxZldTbFA=
 
+"@types/jquery@^3.5.5":
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.5.tgz#2c63f47c9c8d96693d272f5453602afd8338c903"
+  integrity sha512-6RXU9Xzpc6vxNrS6FPPapN1SxSHgQ336WC6Jj/N8q30OiaBZ00l1GBgeP7usjVZPivSkGUfL1z/WW6TX989M+w==
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/mocha@^5.2.7":
   version "5.2.7"
   resolved "https://registry.npm.taobao.org/@types/mocha/download/@types/mocha-5.2.7.tgz#315d570ccb56c53452ff8638738df60726d5b6ea"
@@ -70,6 +77,11 @@
   version "6.0.1"
   resolved "https://registry.npm.taobao.org/@types/sinonjs__fake-timers/download/@types/sinonjs__fake-timers-6.0.1.tgz#681df970358c82836b42f989188d133e218c458e"
   integrity sha1-aB35cDWMgoNrQvmJGI0TPiGMRY4=
+
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+  integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
 ansi-colors@3.2.3:
   version "3.2.3"
@@ -800,9 +812,9 @@ wrappy@1:
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
 y18n@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/y18n/download/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
-  integrity sha1-le+U+F7MgdAHwmThkKEg8KPIVms=
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.3.tgz#b5f259c82cd6e336921efd7bfd8bf560de9eeedf"
+  integrity sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==
 
 yargs-parser@13.1.2, yargs-parser@^13.1.2:
   version "13.1.2"
