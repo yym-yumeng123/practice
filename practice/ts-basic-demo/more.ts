@@ -40,3 +40,5 @@ function getLength(input: string | number): number {
     return (<string>input).length
   }
 }
+
+jQuery('#abc')
