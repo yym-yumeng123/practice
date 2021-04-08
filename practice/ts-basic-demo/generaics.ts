@@ -59,3 +59,50 @@ function echoWithLength<T extends IWithLength>(arg: T): T {
 const str1 = echoWithLength("str")
 const obj = echoWithLength({ length: 10, with: "122" })
 const arr = echoWithLength([1, 2, 3])
+
+//---------------------------------
+
+/**
+ * 泛型 类
+ */
+class Queue<T> {
+  private data = []
+  push(item: T) {
+    return this.data.push(item)
+  }
+  pop(): T {
+    return this.data.shift()
+  }
+}
+const queue = new Queue<number>()
+queue.push(1)
+console.log(queue.pop().toFixed())
+
+const queue2 = new Queue<string>()
+queue2.push("str")
+console.log(queue2.pop().length)
+
+/**
+ * 泛型 & 接口
+ */
+interface keyPair<T, U> {
+  key: T
+  value: U
+}
+
+let kp1: keyPair<number, string> = { key: 123, value: "123" }
+let kp2: keyPair<string, number> = { key: "123", value: 123 }
+
+let arr1: number[] = [1, 2, , 4]
+let arr2: Array<number> = [1, 4, 6]
+
+/**
+ * 泛型 & 函数
+ */
+interface IPlus<T> {
+  (a: T, b: T): T
+}
+function plus(a: number, b: number): number {
+  return a + b
+}
+const a: IPlus<number> = plus
